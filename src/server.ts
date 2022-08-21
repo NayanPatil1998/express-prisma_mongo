@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import router from "./routes";
 import prisma from "../prisma";
+import { isAuthMiddleware } from "./middlewares/isAuth";
 dotenv.config();
 const app = express();
 
@@ -21,7 +22,7 @@ async function main() {
 }
 
 main().then(() => {
-  console.log("db connected")
+  console.log("db coInnected")
 })
 .catch(async (e) => {
   console.error(e);
@@ -34,7 +35,7 @@ main().then(() => {
 app.use("/api", router);
 
 // Routes
-app.get("/", (req: Request, res: Response) => {
+app.get("/", isAuthMiddleware, (req: Request, res: Response) => {
   res.send("Hello world");
 });
 
