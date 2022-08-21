@@ -1,5 +1,5 @@
 import { CookieOptions, Response } from "express";
-import { getJwtToken } from "src/helpers/getJwtToken";
+import { getJwtToken } from "../helpers/getJwtToken";
 import { __prod } from "./constants";
 
 export const cookieToken = (user: any, res: Response) => {
@@ -10,6 +10,8 @@ export const cookieToken = (user: any, res: Response) => {
     secure: __prod,
   };
   user.password = undefined;
+
+  console.log(token)
 
   return res.status(200).cookie("token", token, options).json({
     success: true,
